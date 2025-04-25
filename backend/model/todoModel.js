@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
   todo: { type: String, required: true },
   date: { type: Date, default: Date.now() },
 });
 
-const todoModel = mongoose.model.todo || mongoose.model('todo',todoSchema)
+const todoModel = mongoose.model.todo || mongoose.model("todo", todoSchema);
 
-export default todoModel
+export default todoModel;
