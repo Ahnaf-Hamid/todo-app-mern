@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import userRouter from "./routes/userRoute.js";
+import todoRouter from "./routes/todoRoute.js";
 
 const app = express();
 const port = 4000;
@@ -14,6 +15,7 @@ app.use(cors());
 
 // routes
 app.use('/api/user',userRouter)
+app.use('/api/todo',todoRouter)
 
 // DB connection
 mongoose.connect(process.env.MONGODB_URL).then(()=>{
