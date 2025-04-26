@@ -4,8 +4,9 @@ import todoModel from "../model/todoModel.js";
 const addTodo = async (req, res) => {
   try {
     const { todo } = req.body;
+    const userId = req.userId;
 
-    await todoModel.create({ todo });
+    await todoModel.create({ todo, userId });
 
     res.json({ success: true, msg: "Todo Added" });
   } catch (error) {
@@ -17,9 +18,14 @@ const addTodo = async (req, res) => {
 // Delete todo
 const deleteTodo = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { _id } = req.body;
+    const userId = req.userId
 
-    await todoModel.findByIdAndDelete(id);
+    const deletedTodo = await todoModel.findOneAndDelete({_id, userId});
+
+    if (!deletedTodo) {
+      return res.json({ success: false, msg: "Todo not found!" });
+    }
 
     res.json({ success: true, msg: "Todo Deleted" });
   } catch (error) {
@@ -31,7 +37,7 @@ const deleteTodo = async (req, res) => {
 // get todo for specific user
 const getAllTodo = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.userId;
 
     const todos = await todoModel.find({ userId });
 

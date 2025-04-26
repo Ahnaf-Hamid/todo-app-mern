@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
     }
     
     const tokenDecode = jwt.verify(token,process.env.JWT_SECRET)
-    req.userId = tokenDecode._id
+    req.userId = tokenDecode.id
     next()
  
   } catch (error) {
