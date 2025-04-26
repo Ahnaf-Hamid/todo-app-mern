@@ -15,7 +15,7 @@ const App = () => {
       <Navbar setToken={setToken}/>
       <Routes>
         <Route path='/' element={<Login setToken={setToken}/>}/>
-        <Route path='/todo-app' element={<Todo />}/>
+        <Route path='/todo-app' element={<Todo token={token}/>}/>
       </Routes>
     </div>
   )
