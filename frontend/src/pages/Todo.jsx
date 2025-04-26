@@ -15,9 +15,27 @@ const Todo = ({ token }) => {
       if(response.data.success){
         getUserTodo();
         toast.success(response.data.msg)
+        setTodo('')
       } else {
         toast.error(response.data.msg)
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeTodo = async (id) => {
+    try {
+      const response = await axios.post(`${backendUrl}/api/todo/delete`,{ _id:id },{headers: {token}})
+      // console.log(response.data);
+
+      if(response.data.success){
+        getUserTodo();
+        toast.success(response.data.msg)
+      } else {
+        toast.error(response.data.msg)
+      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -54,9 +72,9 @@ const Todo = ({ token }) => {
         <div className="w-full mt-4 p-4 ">
           {getTodo.map((item,index)=>{
             return (
-              <ul key={index} className='flex items-center justify-between gap-4'>
+              <ul key={index} className='flex items-center justify-between gap-4 p-2'>
                 <li className='font-semibold text-lg'>{item.todo}</li>
-                <button className='text-red-500 hover:text-red-700 font-bold cursor-pointer'>X</button>
+                <button onClick={()=>removeTodo(item._id)} className='text-red-500 hover:text-red-700 font-bold cursor-pointer'>X</button>
               </ul>
             )
           })}
