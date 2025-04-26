@@ -1,4 +1,4 @@
-import { jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
     }
     
     const tokenDecode = jwt.verify(token,process.env.JWT_SECRET)
-    req.body.userId = tokenDecode._id
+    req.userId = tokenDecode._id
     next()
  
   } catch (error) {
