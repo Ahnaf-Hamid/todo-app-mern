@@ -39,7 +39,7 @@ const Login = ({ setToken }) => {
       console.log(error);
     }
   }
-
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-300">
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl w-96 p-8 flex flex-col gap-4 mx-2">
