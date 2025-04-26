@@ -1,18 +1,22 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { backendUrl } from '../App'
+import { toast } from 'react-toastify'
 
 const Todo = ({ token }) => {
-  const [task,setTask] = useState('')
+  const [todo,setTodo] = useState('')
   const [getTodo,setGetTodo] = useState([])
 
   const addTodo = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/api/todo/add`,{ task },{headers: {token}})
+      const response = await axios.post(`${backendUrl}/api/todo/add`,{ todo },{headers: {token}})
       // console.log(response.data)
 
       if(response.data.success){
-        console.log(response.data)
+        getUserTodo();
+        toast.success(response.data.msg)
+      } else {
+        toast.error(response.data.msg)
       }
     } catch (error) {
       console.log(error);
@@ -22,10 +26,12 @@ const Todo = ({ token }) => {
   const getUserTodo = async () => {
     try {
       const response = await axios.post(`${backendUrl}/api/todo/get`,{},{headers: {token}})
-      console.log(response.data);
+      // console.log(response.data);
       
       if(response.data.success){
         setGetTodo(response.data.todos)
+      } else {
+        toast.error(response.data.msg)
       }
     } catch (error) {
       console.log(error);
@@ -41,7 +47,7 @@ const Todo = ({ token }) => {
         <h1 className='text-center text-2xl font-semibold font-serif'>TODO LIST</h1>
 
         <div className='flex items-center gap-2'>
-          <input type="text" onChange={(e)=>setTask(e.target.value)} value={task} className='flex-1 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-800' placeholder='Enter a task' />
+          <input type="text" onChange={(e)=>setTodo(e.target.value)} value={todo} className='flex-1 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-800' placeholder='Enter a task' />
           <button onClick={addTodo} className='bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600 cursor-pointer'>Add</button>
         </div>
 
