@@ -13,6 +13,7 @@ const App = () => {
     <div>
       <ToastContainer />
       <Navbar setToken={setToken}/>
+      
       <Routes>
         <Route path='/' element={<Login setToken={setToken}/>}/>
         <Route path='/todo-app' element={<Todo token={token}/>}/>
