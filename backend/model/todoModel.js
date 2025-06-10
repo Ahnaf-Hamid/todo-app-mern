@@ -6,6 +6,6 @@ const todoSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now() },
 });
 
-const todoModel = mongoose.model.todo || mongoose.model("todo", todoSchema);
+const todoModel = mongoose.models.todo || mongoose.model("todo", todoSchema);
 
 export default todoModel;
